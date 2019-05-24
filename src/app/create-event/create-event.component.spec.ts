@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateEventComponent } from './create-event.component';
-import {by, element} from 'protractor';
 import {By} from '@angular/platform-browser';
 
 describe('CreateEventComponent', () => {
