@@ -18,7 +18,7 @@ describe('EventsService', () => {
     const service: EventsService = TestBed.get(EventsService);
     service.createEvent('Party at my house').subscribe(data => {
       expect(data['id']).toBe(1);
-      expect(data['id']).toBe('Party at my house');
+      expect(data['name']).toBe('Party at my house');
     });
   });
 
