@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/events",
+    "bodyPatterns": [
+      {
+        "equalToJson" : {"name": "Party at my house"}
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "body": "{{\"id\": 1, \"name\": \"Party at my house\"}}"
+  }
+}
