@@ -5,7 +5,12 @@ export class AppPage {
     return browser.get(browser.baseUrl) as Promise<any>;
   }
 
-  getTitleText() {
-    return element(by.css('app-root h1')).getText() as Promise<string>;
+  createEvent(partyAtMyHouse: string) {
+    element(by.css('.event-name')).sendKeys(partyAtMyHouse);
+    element(by.css('.create-event')).click();
+  }
+
+  getPermalink() {
+    return element(by.css('.event-permalink')).getAttribute('value') as Promise<string>;
   }
 }

@@ -8,9 +8,10 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should create a new event', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to are-you-coming!');
+    page.createEvent('Party at my house');
+    expect(page.getPermalink()).toEqual('http://somethingunique.example.com');
   });
 
   afterEach(async () => {
