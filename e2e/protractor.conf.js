@@ -24,5 +24,14 @@ exports.config = {
       project: require('path').join(__dirname, './tsconfig.e2e.json')
     });
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+  },
+  afterLaunch(exitCode) {
+    var q = require('q');
+    return q.fcall(function () {
+      var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://localhost:8080/__admin/shutdown')
+      xhr.send('');
+    }).delay(1000);
   }
 };
