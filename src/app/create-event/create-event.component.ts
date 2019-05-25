@@ -8,7 +8,7 @@ import {Event} from '../event';
   styleUrls: ['./create-event.component.scss']
 })
 export class CreateEventComponent implements OnInit {
-  event: Event;
+  public event: Event;
 
   constructor(private eventsService: EventsService ) { }
 
@@ -16,9 +16,7 @@ export class CreateEventComponent implements OnInit {
   }
 
   createEvent(eventName: string) {
-    this.eventsService.createEvent(eventName).subscribe((event: Event) => {
-      console.log("************************");
-      console.log(event);
+    this.eventsService.createEvent(eventName).subscribe((event) => {
       this.event = event;
     });
   }

@@ -1,5 +1,3 @@
-<p>
-  create-event works!
-</p>
-<input type="text" class="event-name"/>
-<input type="button" class="create-event"/>
+<input type="text" class="event-name" #eventName/>
+<input type="button" class="create-event" (click)="createEvent(eventName.value)" value="Create Event"/>
+<input type="text" class="event-permalink" [value]="event.permalink" *ngIf="event"/>
