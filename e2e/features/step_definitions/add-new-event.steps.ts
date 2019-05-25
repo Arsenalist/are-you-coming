@@ -1,6 +1,6 @@
-import {Given, Then, When, Before, defineSupportCode} from 'cucumber'
+import {Given, Then, When} from 'cucumber'
 import {AppPage} from '../page_objects/app.po'
-import { expect } from 'chai';
+import {expect} from 'chai';
 
 module.exports = function() {
 
