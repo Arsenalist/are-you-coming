@@ -2,8 +2,8 @@ import {Given, Then, When, Before, defineSupportCode} from 'cucumber'
 import {AppPage} from '../page_objects/app.po'
 import { expect } from 'chai';
 
+module.exports = function() {
 
-defineSupportCode(function({ Given, Then, When }) {
   let app: AppPage = new AppPage();
 
   Given(/^I want to add a new event$/, async () => {
@@ -18,4 +18,4 @@ defineSupportCode(function({ Given, Then, When }) {
         expect(permalink).to.equal('http://somethingunique.example.com');
       }, error => {throw error});
   });
-});
+}();
