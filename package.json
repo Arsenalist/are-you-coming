@@ -50,5 +50,9 @@
     "typescript": "~3.2.2",
     "webdriver-manager": "^12.1.4",
     "xmlhttprequest": "^1.8.0"
+  },
+  "engines": {
+    "node": "v10.15.0",
+    "npm": "6.4.1"
   }
 }
