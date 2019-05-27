@@ -44,7 +44,8 @@ describe('CreateEventComponent', () => {
     const newEvent: Event = {
       id: 1,
       name: 'Party at my house',
-      permalink: 'http://somethingunique.example.com'
+      permalink: 'http://somethingunique.example.com',
+      hash: 'party123'
     };
     const eventsService = TestBed.get(EventsService);
     spyOn(eventsService, 'createEvent').and.returnValue(of(newEvent));

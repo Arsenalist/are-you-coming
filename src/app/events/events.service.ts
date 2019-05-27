@@ -14,4 +14,8 @@ export class EventsService {
   createEvent(eventName: string): Observable<Event> {
     return this.http.post<Event>(environment.baseEndpointUrl + '/events', {name: eventName});
   }
+
+  getEventByHash(hash: string): Observable<Event> {
+    return this.http.get<Event>(environment.baseEndpointUrl + `/events/${hash}`);
+  }
 }
