@@ -7,7 +7,7 @@ import {EventsService} from "../events/events.service";
 import {HttpClient} from "@angular/common/http";
 import {of} from "rxjs";
 import {By} from "@angular/platform-browser";
-import {CreateEventComponent} from "../create-event/create-event.component";
+import {ActivatedRoute} from "@angular/router";
 
 describe('ViewEventDetailComponent', () => {
   let component: ViewEventDetailComponent;
@@ -18,7 +18,12 @@ describe('ViewEventDetailComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ ViewEventDetailComponent ],
       imports: [HttpClientTestingModule],
-      providers: [EventsService, HttpClient]
+      providers: [EventsService, HttpClient, {
+        provide: ActivatedRoute,
+        useValue: {
+          params: of({'event_hash': 'abc123'})
+        }
+      }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewEventDetailComponent);
