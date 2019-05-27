@@ -49,8 +49,8 @@ describe('EventsService', () => {
     const event: Event = {
       id: 2,
       name: 'Royal Rumble',
-      hash: 'abc123',
-      permalink: 'http://example.com/abc123'
+      hash: 'royalrumblehash',
+      permalink: 'http://example.com/royalrumblehash'
     };
 
     service.getEventByHash(event.hash).subscribe((data: Event) => {

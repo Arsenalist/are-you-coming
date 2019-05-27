@@ -21,7 +21,7 @@ describe('ViewEventDetailComponent', () => {
       providers: [EventsService, HttpClient, {
         provide: ActivatedRoute,
         useValue: {
-          params: of({'event_hash': 'abc123'})
+          params: of({'event_hash': 'royalrumblehash'})
         }
       }]
     }).compileComponents();
@@ -41,11 +41,11 @@ describe('ViewEventDetailComponent', () => {
       id: 2,
       name: 'Royal Rumble',
       hash: 'abc123',
-      permalink: 'http://abc123.example.com'
+      permalink: 'http://royalrumblehash.example.com'
     };
     const eventsService = TestBed.get(EventsService);
     spyOn(eventsService, 'getEventByHash').and.returnValue(of(event));
-    component.getEvent('abc123');
+    component.getEvent('royalrumblehash');
     expect(component.event.id).toBe(event.id);
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('.event-permalink')).nativeElement.value).toBe(event.permalink);
