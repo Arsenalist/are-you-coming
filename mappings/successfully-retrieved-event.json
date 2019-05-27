@@ -1,7 +1,7 @@
 {
   "request": {
     "method": "GET",
-    "url": "/events/royalrumblehash",
+    "url": "/events/royalrumblehash"
   },
   "response": {
     "status": 200,
