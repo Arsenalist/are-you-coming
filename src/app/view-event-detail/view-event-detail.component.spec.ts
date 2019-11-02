@@ -62,4 +62,14 @@ describe('ViewEventDetailComponent', () => {
     expect(fixture.debugElement.query(By.css('.rsvp-yes')).nativeElement).toBeDefined();
     expect(fixture.debugElement.query(By.css('.rsvp-no')).nativeElement).toBeDefined();
   });
+
+  it('Clicking on Yes should invoke service call', () => {
+    const eventsService = TestBed.get(EventsService);
+    spyOn(eventsService, 'getEventByHash').and.returnValue(of(event));
+    spyOn(eventsService, 'rsvp');
+    component.getEvent('abc123');
+    component.rsvpYes();
+    expect(eventsService.rsvp).toHaveBeenCalledWith({rsvp: 'yes', hash: 'abc123'});
+  });
+
 });

@@ -25,4 +25,8 @@ export class ViewEventDetailComponent implements OnInit {
       this.event = event;
     })
   }
+
+  public rsvpYes() {
+    this.eventsService.rsvp({rsvp: 'yes', hash: this.event.hash});
+  }
 }

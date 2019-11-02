@@ -18,4 +18,8 @@ export class EventsService {
   getEventByHash(hash: string): Observable<Event> {
     return this.http.get<Event>(environment.baseEndpointUrl + `/events/${hash}`);
   }
+
+  rsvp(param: {rsvp: string, hash: string}) {
+    return this.http.post(environment.baseEndpointUrl + `/events/${param.hash}`, {rsvp: param.rsvp});
+  }
 }
