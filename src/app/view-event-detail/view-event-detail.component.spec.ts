@@ -13,6 +13,13 @@ describe('ViewEventDetailComponent', () => {
   let component: ViewEventDetailComponent;
   let fixture: ComponentFixture<ViewEventDetailComponent>;
 
+  const event: Event = {
+    id: 2,
+    name: 'Royal Rumble',
+    hash: 'abc123',
+    permalink: 'http://royalrumblehash.example.com'
+  };
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -37,12 +44,6 @@ describe('ViewEventDetailComponent', () => {
   });
 
   it('should display event details', () => {
-    const event: Event = {
-      id: 2,
-      name: 'Royal Rumble',
-      hash: 'abc123',
-      permalink: 'http://royalrumblehash.example.com'
-    };
     const eventsService = TestBed.get(EventsService);
     spyOn(eventsService, 'getEventByHash').and.returnValue(of(event));
     component.getEvent('royalrumblehash');
@@ -53,12 +54,6 @@ describe('ViewEventDetailComponent', () => {
   });
 
   it('should display a Yes or No button to indicate if a person is coming or not', () => {
-    const event: Event = {
-      id: 2,
-      name: 'Royal Rumble',
-      hash: 'abc123',
-      permalink: 'http://royalrumblehash.example.com'
-    };
     const eventsService = TestBed.get(EventsService);
     spyOn(eventsService, 'getEventByHash').and.returnValue(of(event));
     component.getEvent('royalrumblehash');
