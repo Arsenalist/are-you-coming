@@ -1,4 +1,6 @@
 <ng-container *ngIf="event">
   <h1 class="event-name">{{event.name}}</h1>
   <input class="event-permalink" type="text" [value]="event.permalink"/>
+  <input type="button" value="Yes, I'm coming" class="rsvp-yes"/>
+  <input type="button" value="No, I'm not" class="rsvp-no"/>
 </ng-container>

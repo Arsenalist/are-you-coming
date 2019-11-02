@@ -51,4 +51,20 @@ describe('ViewEventDetailComponent', () => {
     expect(fixture.debugElement.query(By.css('.event-permalink')).nativeElement.value).toBe(event.permalink);
     expect(fixture.debugElement.query(By.css('.event-name')).nativeElement.innerHTML).toEqual(event.name);
   });
+
+  it('should display a Yes or No button to indicate if a person is coming or not', () => {
+    const event: Event = {
+      id: 2,
+      name: 'Royal Rumble',
+      hash: 'abc123',
+      permalink: 'http://royalrumblehash.example.com'
+    };
+    const eventsService = TestBed.get(EventsService);
+    spyOn(eventsService, 'getEventByHash').and.returnValue(of(event));
+    component.getEvent('royalrumblehash');
+    expect(component.event.id).toBe(event.id);
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('.rsvp-yes')).nativeElement).toBeDefined();
+    expect(fixture.debugElement.query(By.css('.rsvp-no')).nativeElement).toBeDefined();
+  });
 });
