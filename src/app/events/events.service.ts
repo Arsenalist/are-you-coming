@@ -16,6 +16,7 @@ export class EventsService {
   }
 
   getEventByHash(hash: string): Observable<Event> {
+    console.log("in service ", hash);
     return this.http.get<Event>(environment.baseEndpointUrl + `/events/${hash}`);
   }
 

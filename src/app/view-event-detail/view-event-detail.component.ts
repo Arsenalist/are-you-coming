@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../events/events.service';
 import {Event} from '../event'
 import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
+import { Store, select } from '@ngrx/store';
+import {eventView} from "../event.actions";
 
 @Component({
   selector: 'app-view-event-detail',
@@ -10,31 +13,35 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ViewEventDetailComponent implements OnInit {
 
-  event: Event;
+  event$: Observable<Event>;
 
-  constructor(private eventsService: EventsService, private route: ActivatedRoute) { }
+  constructor(private store: Store<{currentEvent: Event}>, private route: ActivatedRoute) {
+    this.event$ = store.pipe(select('currentEvent'));
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.getEvent(params['event_hash']);
+      console.log("in ngOnInit ", params['event_hash']);
+      this.store.dispatch(eventView(params['event_hash']));
     });
   }
 
   getEvent(hash: string) {
-    this.eventsService.getEventByHash(hash).subscribe(event => {
-      this.event = event;
-    })
+  //  this.eventsService.getEventByHash(hash).subscribe(event => {
+  //    this.event = event;
+  //  })
   }
 
   public rsvpYes() {
-    this.eventsService.rsvp({rsvp: 'yes', hash: this.event.hash});
+   // this.eventsService.rsvp({rsvp: 'yes', hash: this.event.hash});
   }
 
   public rsvpNo() {
-    this.eventsService.rsvp({rsvp: 'no', hash: this.event.hash});
+   // this.eventsService.rsvp({rsvp: 'no', hash: this.event.hash});
   }
 
   public hasRsvps() {
-    return this.event.rsvps != null && this.event.rsvps.length != 0;
+    return false;
+   // return this.event.rsvps != null && this.event.rsvps.length != 0;
   }
 }
