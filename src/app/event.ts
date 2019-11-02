@@ -1,4 +1,4 @@
-enum RsvpType {
+export enum RsvpType {
   YES = 'yes',
   NO = 'no'
 }
@@ -7,7 +7,7 @@ export interface Event {
   name: string;
   hash: string;
   permalink: string;
-  rsvps: Rsvp[]
+  rsvps?: Rsvp[]
 }
 export interface Rsvp {
   name: string,

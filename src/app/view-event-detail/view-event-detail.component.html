@@ -3,4 +3,10 @@
   <input class="event-permalink" type="text" [value]="event.permalink"/>
   <input type="button" value="Yes, I'm coming" class="rsvp-yes"/>
   <input type="button" value="No, I'm not" class="rsvp-no"/>
+
+  <div class="rsvps">
+    <div *ngFor="let rsvp of event.rsvps;">
+      {{rsvp.name}} - {{rsvp.rsvp}}
+    </div>
+  </div>
 </ng-container>

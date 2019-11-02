@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewEventDetailComponent } from './view-event-detail.component';
-import {Event} from "../event";
+import {Event, RsvpType} from "../event";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {EventsService} from "../events/events.service";
 import {HttpClient} from "@angular/common/http";
@@ -84,12 +84,20 @@ describe('ViewEventDetailComponent', () => {
   it('Should display all the people who have RSVPd with what their RSVP was', () => {
     const event: Event = {
       id: 2,
-      name: 'Royal Rumble',
-      hash: 'abc123',
-      permalink: 'http://royalrumblehash.example.com',
-      rsvps: []
+      name: 'Quirkish Delight Episode 3',
+      hash: 'quirkish-delight-3',
+      permalink: 'http://quirkishdelight.example.com',
+      rsvps: [
+        {name: 'Caitlin', rsvp: RsvpType.YES},
+        {name: 'Sana', rsvp: RsvpType.YES},
+        {name: 'Zarar', rsvp: RsvpType.NO},
+      ]
     };
+    const eventsService = TestBed.get(EventsService);
+    spyOn(eventsService, 'getEventByHash').and.returnValue(of(event));
+    component.getEvent('abc123');
+    expect(component.event.id).toBe(event.id);
+    fixture.detectChanges();
+    expect(fixture.debugElement.queryAll(By.css('div.rsvps div')).length).toBe(3);
   });
-
-
 });
