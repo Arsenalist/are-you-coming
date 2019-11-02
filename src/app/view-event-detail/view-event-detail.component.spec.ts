@@ -81,4 +81,15 @@ describe('ViewEventDetailComponent', () => {
     expect(eventsService.rsvp).toHaveBeenCalledWith({rsvp: 'no', hash: 'abc123'});
   });
 
+  it('Should display all the people who have RSVPd with what their RSVP was', () => {
+    const event: Event = {
+      id: 2,
+      name: 'Royal Rumble',
+      hash: 'abc123',
+      permalink: 'http://royalrumblehash.example.com',
+      rsvps: []
+    };
+  });
+
+
 });
