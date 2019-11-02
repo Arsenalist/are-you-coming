@@ -4,7 +4,8 @@
   <input type="button" value="Yes, I'm coming" class="rsvp-yes"/>
   <input type="button" value="No, I'm not" class="rsvp-no"/>
 
-  <div class="rsvps">
+  <div class="no-rsvps" *ngIf="!hasRsvps()">Nobody has RSVPd yet.</div>
+  <div class="rsvps" *ngIf="hasRsvps()">
     <div *ngFor="let rsvp of event.rsvps;">
       {{rsvp.name}} - {{rsvp.rsvp}}
     </div>

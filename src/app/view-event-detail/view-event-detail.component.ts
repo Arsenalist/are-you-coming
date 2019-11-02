@@ -33,4 +33,8 @@ export class ViewEventDetailComponent implements OnInit {
   public rsvpNo() {
     this.eventsService.rsvp({rsvp: 'no', hash: this.event.hash});
   }
+
+  public hasRsvps() {
+    return this.event.rsvps != null && this.event.rsvps.length != 0;
+  }
 }

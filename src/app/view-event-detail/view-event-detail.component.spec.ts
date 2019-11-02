@@ -96,8 +96,42 @@ describe('ViewEventDetailComponent', () => {
     const eventsService = TestBed.get(EventsService);
     spyOn(eventsService, 'getEventByHash').and.returnValue(of(event));
     component.getEvent('abc123');
+    expect(component.hasRsvps()).toBe(true);
     expect(component.event.id).toBe(event.id);
     fixture.detectChanges();
     expect(fixture.debugElement.queryAll(By.css('div.rsvps div')).length).toBe(3);
+  });
+
+  it('Should display a message when nobody has RSVPd yet with rsvps being an empty list', () => {
+    const event: Event = {
+      id: 2,
+      name: 'Quirkish Delight Episode 3',
+      hash: 'quirkish-delight-3',
+      permalink: 'http://quirkishdelight.example.com',
+      rsvps: []
+    };
+    const eventsService = TestBed.get(EventsService);
+    spyOn(eventsService, 'getEventByHash').and.returnValue(of(event));
+    component.getEvent('abc123');
+    fixture.detectChanges();
+    expect(component.hasRsvps()).toBe(false);
+    expect(fixture.debugElement.query(By.css('div.rsvps'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('div.no-rsvps')).nativeElement.innerHTML).toBeDefined();
+  });
+
+  it('Should display a message when nobody has RSVPd yet with rsvps being undefined', () => {
+    const event: Event = {
+      id: 2,
+      name: 'Quirkish Delight Episode 3',
+      hash: 'quirkish-delight-3',
+      permalink: 'http://quirkishdelight.example.com'
+    };
+    const eventsService = TestBed.get(EventsService);
+    spyOn(eventsService, 'getEventByHash').and.returnValue(of(event));
+    component.getEvent('abc123');
+    fixture.detectChanges();
+    expect(component.hasRsvps()).toBe(false);
+    expect(fixture.debugElement.query(By.css('div.rsvps'))).toBeNull();
+    expect(fixture.debugElement.query(By.css('div.no-rsvps')).nativeElement.innerHTML).toBeDefined();
   });
 });
