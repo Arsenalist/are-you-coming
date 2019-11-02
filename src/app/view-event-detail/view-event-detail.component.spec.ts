@@ -72,4 +72,13 @@ describe('ViewEventDetailComponent', () => {
     expect(eventsService.rsvp).toHaveBeenCalledWith({rsvp: 'yes', hash: 'abc123'});
   });
 
+  it('Clicking on No should invoke service call', () => {
+    const eventsService = TestBed.get(EventsService);
+    spyOn(eventsService, 'getEventByHash').and.returnValue(of(event));
+    spyOn(eventsService, 'rsvp');
+    component.getEvent('abc123');
+    component.rsvpNo();
+    expect(eventsService.rsvp).toHaveBeenCalledWith({rsvp: 'no', hash: 'abc123'});
+  });
+
 });
