@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {EventsService} from '../events/events.service';
 import {Event} from '../event'
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
-import { Store, select } from '@ngrx/store';
+import {Store, select, createSelector} from '@ngrx/store';
 import {eventView} from "../event.actions";
+import {AppState} from "../event.reducer";
 
 @Component({
   selector: 'app-view-event-detail',
@@ -16,13 +16,18 @@ export class ViewEventDetailComponent implements OnInit {
   event$: Observable<Event>;
 
   constructor(private store: Store<{currentEvent: Event}>, private route: ActivatedRoute) {
-    this.event$ = store.pipe(select('currentEvent'));
+    const selectCurrentEvent = (state: AppState) => {
+      return state.currentEvent
+    };
+    const selector = createSelector(selectCurrentEvent, (selectCurrentEvent: Event) => {
+      return selectCurrentEvent
+    });
+    this.event$ = this.store.pipe(select('appState'), select(selector));
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      console.log("in ngOnInit ", params['event_hash']);
-      this.store.dispatch(eventView(params['event_hash']));
+      this.store.dispatch(eventView({hash: params['event_hash']}));
     });
   }
 
