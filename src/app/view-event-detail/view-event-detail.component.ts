@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Event} from '../event'
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
-import {Store, select, createSelector} from '@ngrx/store';
-import {eventView} from "../event.actions";
-import {AppState} from "../event.reducer";
+import {EventFacade} from "../event-facade";
 
 @Component({
   selector: 'app-view-event-detail',
@@ -15,26 +13,14 @@ export class ViewEventDetailComponent implements OnInit {
 
   event$: Observable<Event>;
 
-  constructor(private store: Store<AppState>, private route: ActivatedRoute) {
-    const selectCurrentEvent = (state: AppState) => {
-      return state.currentEvent
-    };
-    const selector = createSelector(selectCurrentEvent, (selectCurrentEvent: Event) => {
-      return selectCurrentEvent
-    });
-    this.event$ = this.store.pipe(select('appState'), select(selector));
+  constructor(private eventFacade: EventFacade, private route: ActivatedRoute) {
+    this.event$ = eventFacade.initializeCurrentEvent();
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.store.dispatch(eventView({hash: params['event_hash']}));
+      this.eventFacade.viewEvent(params['event_hash']);
     });
-  }
-
-  getEvent(hash: string) {
-  //  this.eventsService.getEventByHash(hash).subscribe(event => {
-  //    this.event = event;
-  //  })
   }
 
   public rsvpYes() {
