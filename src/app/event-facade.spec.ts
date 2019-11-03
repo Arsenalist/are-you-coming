@@ -6,44 +6,45 @@ import {AppState} from "./event.reducer";
 import {cold} from 'jasmine-marbles';
 
 describe('EventFacadeService', () => {
-  let store: MockStore<AppState>;
-  const initialState =
-    {
-      appState:
-        {
-          currentEvent: {
-            id: 2,
-            name: 'Royal Rumble',
-            hash: 'abc123',
-            permalink: 'http://royalrumblehash.example.com'
+  describe('EventFacadeService.initializeCurrentEvent', () => {
+    let store: MockStore<AppState>;
+    const initialState =
+      {
+        appState:
+          {
+            currentEvent: {
+              id: 2,
+              name: 'Royal Rumble',
+              hash: 'abc123',
+              permalink: 'http://royalrumblehash.example.com'
+            }
           }
-        }
-    };
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-      ],
-      providers: [
-        EventFacade,
-        provideMockStore({initialState}),
-      ]
+      };
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [],
+        providers: [
+          EventFacade,
+          provideMockStore({initialState}),
+        ]
+      });
+      store = TestBed.get(Store);
     });
-    store = TestBed.get(Store);
-  });
 
-  it('should be created', () => {
-    const service: EventFacade = TestBed.get(EventFacade);
-    expect(service).toBeTruthy();
-  });
-  it('should return the current event as an observable', () => {
-    const currentEvent = {
-      id: 2,
-      name: 'Royal Rumble',
-      hash: 'abc123',
-      permalink: 'http://royalrumblehash.example.com'
-    };
-    const expected = cold('(a)', {a: currentEvent});
-    const eventFacade: EventFacade = TestBed.get(EventFacade);
-    expect(eventFacade.initializeCurrentEvent()).toBeObservable(expected);
+    it('should be created', () => {
+      const service: EventFacade = TestBed.get(EventFacade);
+      expect(service).toBeTruthy();
+    });
+    it('should return the current event as an observable', () => {
+      const currentEvent = {
+        id: 2,
+        name: 'Royal Rumble',
+        hash: 'abc123',
+        permalink: 'http://royalrumblehash.example.com'
+      };
+      const expected = cold('(a)', {a: currentEvent});
+      const eventFacade: EventFacade = TestBed.get(EventFacade);
+      expect(eventFacade.initializeCurrentEvent()).toBeObservable(expected);
+    });
   });
 });
