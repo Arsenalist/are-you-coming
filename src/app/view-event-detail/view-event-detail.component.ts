@@ -15,7 +15,7 @@ export class ViewEventDetailComponent implements OnInit {
 
   event$: Observable<Event>;
 
-  constructor(private store: Store<{currentEvent: Event}>, private route: ActivatedRoute) {
+  constructor(private store: Store<AppState>, private route: ActivatedRoute) {
     const selectCurrentEvent = (state: AppState) => {
       return state.currentEvent
     };
