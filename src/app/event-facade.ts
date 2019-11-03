@@ -19,7 +19,10 @@ export class EventFacade {
   public initializeCurrentEvent(): Observable<Event> {
     const selectCurrentEvent = (state: AppState) => state.currentEvent ;
     const selector = createSelector(selectCurrentEvent, (selectCurrentEvent: Event) => selectCurrentEvent );
-    return this.store.pipe(select('appState'), select(selector));
+    return this.store.pipe(
+      select('appState'),
+      select(selector)
+    );
   }
 
 }
