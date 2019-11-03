@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {createSelector, select, Store} from "@ngrx/store";
 import {AppState} from "./event.reducer";
 import {eventView} from "./event.actions";
@@ -24,5 +24,4 @@ export class EventFacade {
       select(selector)
     );
   }
-
 }
