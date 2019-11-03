@@ -5,5 +5,6 @@ export const eventView = createAction(
   props<{ hash: string }>()
 );
 export const eventLoadedSuccess = createAction(
-  '[Events API] Event Loaded Success'
+  '[Events API] Event Loaded Success',
+  props<{ payload: any}>()
 );

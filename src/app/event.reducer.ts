@@ -1,13 +1,27 @@
-import { createReducer, on } from '@ngrx/store';
-import { eventView } from './event.actions';
+import {Action, createReducer, on } from '@ngrx/store';
+import { eventView, eventLoadedSuccess } from './event.actions';
 import { Event } from './event';
 
-export const initialState = {currentEvent: Event};
+export interface AppState {
+  userCookie: string;
+  currentEvent: Event | undefined;
+}
 
-const _eventReducer = createReducer(initialState,
+const initialState: AppState = {
+    userCookie: 'myCookie',
+    currentEvent: undefined
+  };
+
+const eventReducers = createReducer(
+  initialState,
   on(eventView, state => state),
+  on(eventLoadedSuccess, (state, {payload}) => ({
+      ...state,
+      currentEvent: payload
+    }
+  ))
 );
 
-export function eventReducer(state, action) {
-  return _eventReducer(state, action);
+export function reducer(state: AppState | undefined, action: Action) {
+  return eventReducers(state, action);
 }

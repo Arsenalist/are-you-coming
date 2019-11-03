@@ -8,7 +8,7 @@ import { CreateEventComponent } from './create-event/create-event.component';
 import {HttpClientModule} from '@angular/common/http';
 import { ViewEventDetailComponent } from './view-event-detail/view-event-detail.component';
 import { StoreModule } from '@ngrx/store';
-import { eventReducer } from './event.reducer';
+import { reducer } from './event.reducer';
 import { EventEffects } from './event.effects';
 import {EffectsModule} from "@ngrx/effects";
 import {environment} from "../environments/environment";
@@ -23,7 +23,7 @@ import {environment} from "../environments/environment";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    StoreModule.forRoot(eventReducer) ,
+    StoreModule.forRoot({ appState: reducer }),
     EffectsModule.forRoot([EventEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
