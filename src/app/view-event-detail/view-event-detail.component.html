@@ -1,15 +1,34 @@
 <ng-container *ngIf="event$ | async as event">
-  <h1 class="event-name">{{event.name}}</h1>
-  <input class="event-permalink" type="text" [value]="event.permalink"/>
-  <input class="personName" type="text" [(ngModel)]="personName"/>
-  <input (click)="rsvpYes()" class="rsvp-yes" type="button" value="Yes, I'm coming"/>
-  <input (click)="rsvpNo()" class="rsvp-no" type="button" value="No, I'm not"/>
-
-
-  <div class="no-rsvps" *ngIf="!hasRsvps(event)">Nobody has RSVPd yet.</div>
-  <div class="rsvps" *ngIf="hasRsvps(event)">
-    <div *ngFor="let rsvp of event.rsvps;">
-      {{rsvp.name}} - {{rsvp.rsvp}}
+  <div class="row">
+    <div class="col-6">
+      <h3 class="event-name">Event: {{event.name}}</h3>
+      <p>Are you coming?</p>
+      <form>
+        <div class="form-group">
+          <label>Name</label>
+          <input placeholder="e.g., John" class="form-control" type="text" [(ngModel)]="personName" name="personName"/>
+        </div>
+        <button (click)="rsvpYes()" class="btn btn-md btn-success rsvp-yes" type="button">Yes, I'm coming</button>
+        &nbsp;
+        <button (click)="rsvpNo()" class="btn btn-md btn-danger rsvp-no" type="button">No, I'm not</button>
+      </form>
     </div>
+  </div>
+  <br/><br/>
+  <div class="row">
+    <div class="col-6">
+      <div class="no-rsvps" *ngIf="!hasRsvps(event)">Nobody has RSVPd yet.</div>
+        <p *ngIf="hasRsvps(event)">
+          Here's who has RSVP'd:
+        </p>
+      <ul class="list-group">
+          <li
+            *ngFor="let rsvp of event.rsvps;"
+            class="list-group-item d-flex justify-content-between align-items-center">
+            {{rsvp.name}}
+            <span class="badge badge-primary badge-pill">{{rsvp.rsvp}}</span>
+          </li>
+      </ul>
+        </div>
   </div>
 </ng-container>
