@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Event, RsvpType} from '../event'
+import {Event, Rsvp, RsvpType} from '../event'
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 import {EventFacade} from "../event-facade";
@@ -57,5 +57,15 @@ export class ViewEventDetailComponent implements OnInit {
       name: this.personName
     });
     this.cookieService.set("rsvp-data", JSON.stringify(rsvpData));
+  }
+
+  rsvpCss(rsvp: Rsvp) {
+    if (rsvp.rsvp == RsvpType.YES) {
+      return "badge-success";
+    } else if (rsvp.rsvp == RsvpType.NO) {
+      return "badge-danger";
+    } else {
+      return "badge-primary";
+    }
   }
 }

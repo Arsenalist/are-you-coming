@@ -14,6 +14,6 @@
       "x-frame-options" : "DENY",
       "x-xss-protection" : "1; mode=block"
     },
-    "body": "{\"id\": 2, \"name\": \"Royal Rumble\", \"permalink\": \"http://example.com/royalrumblehash\", \"rsvps\": [{\"name\": \"Adam\", \"rsvp\": \"yes\"}]}"
+    "body": "{\"id\": 2, \"name\": \"Royal Rumble\", \"permalink\": \"http://example.com/royalrumblehash\", \"rsvps\": [{\"name\": \"Adam\", \"rsvp\": \"yes\"}, {\"name\": \"Bill\", \"rsvp\": \"yes\"}, {\"name\": \"Carl\", \"rsvp\": \"no\"}, {\"name\": \"Diane\", \"rsvp\": \"yes\"}]}"
   }
 }
