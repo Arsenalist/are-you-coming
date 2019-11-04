@@ -1,7 +1,10 @@
 {
   "request": {
-    "method": "GET",
-    "url": "/events/royalrumblehash"
+    "method": "POST",
+    "url": "/events/royalrumblehash",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"name\":\"Zarar\",\"eventHash\":\"royalrumblehash\",\"rsvp\":\"no\"}"
+    } ]
   },
   "response": {
     "status": 200,
@@ -13,7 +16,6 @@
       "X-Content-Type-Options" : "nosniff",
       "x-frame-options" : "DENY",
       "x-xss-protection" : "1; mode=block"
-    },
-    "body": "{\"id\": 2, \"name\": \"Royal Rumble\", \"permalink\": \"http://example.com/royalrumblehash\", \"rsvps\": [{\"name\": \"Adam\", \"rsvp\": \"yes\"}]}"
+    }
   }
 }

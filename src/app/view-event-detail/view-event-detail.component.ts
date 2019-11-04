@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {EventsService} from '../events/events.service';
-import {Event} from '../event'
+import {Event, RsvpType} from '../event'
 import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
+import {EventFacade} from "../event-facade";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-view-event-detail',
@@ -10,31 +12,50 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ViewEventDetailComponent implements OnInit {
 
-  event: Event;
+  event$: Observable<Event>;
+  private hash: string;
+  personName: string;
 
-  constructor(private eventsService: EventsService, private route: ActivatedRoute) { }
+  constructor(private eventFacade: EventFacade, private route: ActivatedRoute, private cookieService: CookieService) {
+    this.event$ = eventFacade.initializeCurrentEvent();
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.getEvent(params['event_hash']);
+      this.hash = params['event_hash'];
+      this.eventFacade.viewEvent(params['event_hash']);
     });
   }
 
-  getEvent(hash: string) {
-    this.eventsService.getEventByHash(hash).subscribe(event => {
-      this.event = event;
-    })
-  }
-
   public rsvpYes() {
-    this.eventsService.rsvp({rsvp: 'yes', hash: this.event.hash});
+    this.eventFacade.recordRsvp({
+      name: this.personName,
+      eventHash: this.hash,
+      rsvp: RsvpType.YES
+    });
+    this.updateCookie();
   }
 
   public rsvpNo() {
-    this.eventsService.rsvp({rsvp: 'no', hash: this.event.hash});
+    this.eventFacade.recordRsvp({
+      name: this.personName,
+      eventHash: this.hash,
+      rsvp: RsvpType.NO
+    });
+    this.updateCookie();
   }
 
-  public hasRsvps() {
-    return this.event.rsvps != null && this.event.rsvps.length != 0;
+  public hasRsvps(event) {
+   return event.rsvps != null && event.rsvps.length != 0;
+  }
+
+  private updateCookie() {
+    let cookieValue = this.cookieService.get("rsvp-data");
+    let rsvpData = cookieValue ? JSON.parse(cookieValue) : [];
+    rsvpData.push({
+      eventHash: this.hash,
+      name: this.personName
+    });
+    this.cookieService.set("rsvp-data", JSON.stringify(rsvpData));
   }
 }

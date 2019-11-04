@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
-import {Observable} from 'rxjs';
-import {Event} from '../event';
+import {Observable } from 'rxjs';
+import {Event, Rsvp} from '../event';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class EventsService {
     return this.http.get<Event>(environment.baseEndpointUrl + `/events/${hash}`);
   }
 
-  rsvp(param: {rsvp: string, hash: string}) {
-    return this.http.post(environment.baseEndpointUrl + `/events/${param.hash}`, {rsvp: param.rsvp});
+  rsvp(hash: string, rsvp: Rsvp) {
+    return this.http.post(environment.baseEndpointUrl + `/events/${hash}`, rsvp);
   }
 }
