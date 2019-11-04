@@ -12,6 +12,8 @@ import { reducer } from './event.reducer';
 import { EventEffects } from './event.effects';
 import {EffectsModule} from "@ngrx/effects";
 import {environment} from "../environments/environment";
+import {CookieService} from "ngx-cookie-service";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import {environment} from "../environments/environment";
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot({ appState: reducer }),
@@ -31,7 +34,7 @@ import {environment} from "../environments/environment";
     }),
 
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

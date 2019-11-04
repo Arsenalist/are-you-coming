@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {createSelector, select, Store} from "@ngrx/store";
 import {AppState} from "./event.reducer";
-import {eventView} from "./event.actions";
-import {Event} from "./event";
+import {eventView, userRsvps} from "./event.actions";
+import {Event, Rsvp} from "./event";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -23,5 +23,10 @@ export class EventFacade {
       select('appState'),
       select(selector)
     );
+  }
+
+  public recordRsvp(rsvp: Rsvp) {
+    console.log("in recordRsvp in event facade")
+    this.store.dispatch(userRsvps({hash: rsvp.eventHash, rsvp: rsvp}))
   }
 }

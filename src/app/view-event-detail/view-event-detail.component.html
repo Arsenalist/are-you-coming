@@ -1,11 +1,13 @@
 <ng-container *ngIf="event$ | async as event">
   <h1 class="event-name">{{event.name}}</h1>
   <input class="event-permalink" type="text" [value]="event.permalink"/>
-  <input type="button" value="Yes, I'm coming" class="rsvp-yes"/>
-  <input type="button" value="No, I'm not" class="rsvp-no"/>
+  <input class="personName" type="text" [(ngModel)]="personName"/>
+  <input (click)="rsvpYes()" class="rsvp-yes" type="button" value="Yes, I'm coming"/>
+  <input (click)="rsvpNo()" class="rsvp-no" type="button" value="No, I'm not"/>
 
-  <div class="no-rsvps" *ngIf="!hasRsvps()">Nobody has RSVPd yet.</div>
-  <div class="rsvps" *ngIf="hasRsvps()">
+
+  <div class="no-rsvps" *ngIf="!hasRsvps(event)">Nobody has RSVPd yet.</div>
+  <div class="rsvps" *ngIf="hasRsvps(event)">
     <div *ngFor="let rsvp of event.rsvps;">
       {{rsvp.name}} - {{rsvp.rsvp}}
     </div>

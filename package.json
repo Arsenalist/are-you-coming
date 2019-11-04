@@ -28,6 +28,7 @@
     "@ngrx/store-devtools": "^8.4.0",
     "core-js": "^2.5.4",
     "express": "^4.17.1",
+    "ngx-cookie-service": "^2.2.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
@@ -55,7 +56,7 @@
     "typescript": "~3.2.2",
     "webdriver-manager": "^12.1.4",
     "xmlhttprequest": "^1.8.0",
-    "jasmine-marbles": "latest"
+    "jasmine-marbles": "^0.6.0"
   },
   "engines": {
     "node": "v10.15.0",

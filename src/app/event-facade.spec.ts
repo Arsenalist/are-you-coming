@@ -4,6 +4,7 @@ import {MockStore, provideMockStore} from '@ngrx/store/testing';
 import {EventFacade} from './event-facade';
 import {AppState} from "./event.reducer";
 import {cold} from 'jasmine-marbles';
+import {EventsService} from "./events/events.service";
 
 describe('EventFacadeService', () => {
   describe('EventFacadeService.initializeCurrentEvent', () => {
@@ -25,6 +26,7 @@ describe('EventFacadeService', () => {
         imports: [],
         providers: [
           EventFacade,
+          EventsService,
           provideMockStore({initialState}),
         ]
       });

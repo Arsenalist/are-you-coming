@@ -11,5 +11,6 @@ export interface Event {
 }
 export interface Rsvp {
   name: string,
+  eventHash: string,
   rsvp: RsvpType
 }
