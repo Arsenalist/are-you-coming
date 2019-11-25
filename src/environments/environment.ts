@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseEndpointUrl: 'https://areyoucomingapi.arsenalist.com'
+  baseEndpointUrl: 'http://localhost:8080'
 };
 
 /*
