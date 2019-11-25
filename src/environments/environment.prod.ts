@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseEndpointUrl: 'http://somefancyapisomwherewhichihavetodecide.com'
+  baseEndpointUrl: 'https://areyoucomingapi.arsenalist.com'
 
 };
