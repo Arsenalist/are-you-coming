@@ -42,7 +42,6 @@ describe('CreateEventComponent', () => {
   });
   it('creating an event should display the URL of the created event', () => {
     const newEvent: Event = {
-      id: 1,
       name: 'Party at my house',
       permalink: 'http://somethingunique.example.com',
       hash: 'party123'
@@ -50,7 +49,7 @@ describe('CreateEventComponent', () => {
     const eventsService = TestBed.get(EventsService);
     spyOn(eventsService, 'createEvent').and.returnValue(of(newEvent));
     component.createEvent(newEvent.name);
-    expect(component.event.id).toBe(newEvent.id);
+    expect(component.event.hash).toBe(newEvent.hash);
 
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('.event-permalink'))).not.toBeNull();

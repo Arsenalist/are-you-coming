@@ -12,14 +12,14 @@ export class EventsService {
   constructor(private http: HttpClient ) { }
 
   createEvent(eventName: string): Observable<Event> {
-    return this.http.post<Event>(environment.baseEndpointUrl + '/events', {name: eventName});
+    return this.http.put<Event>(environment.baseEndpointUrl + '/event', {name: eventName});
   }
 
   getEventByHash(hash: string): Observable<Event> {
-    return this.http.get<Event>(environment.baseEndpointUrl + `/events/${hash}`);
+    return this.http.get<Event>(environment.baseEndpointUrl + `/event/${hash}`);
   }
 
   rsvp(hash: string, rsvp: Rsvp) {
-    return this.http.post(environment.baseEndpointUrl + `/events/${hash}`, rsvp);
+    return this.http.post(environment.baseEndpointUrl + `/event/rsvp`, rsvp);
   }
 }

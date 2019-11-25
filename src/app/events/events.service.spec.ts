@@ -26,20 +26,18 @@ describe('EventsService', () => {
     const service: EventsService = TestBed.get(EventsService);
 
     const newEvent: Event = {
-      id: 1,
       name: 'Party at my house',
       permalink: 'http://somethingunique.example.com',
       hash: 'party123'
     };
 
     service.createEvent('Party at my house').subscribe((data: Event) => {
-      expect(data.id).toBe(1);
       expect(data.name).toBe('Party at my house');
       expect(data.permalink).toBe('http://somethingunique.example.com');
     });
 
-    const req = httpMock.expectOne(environment.baseEndpointUrl + '/events');
-    expect(req.request.method).toBe('POST');
+    const req = httpMock.expectOne(environment.baseEndpointUrl + '/event');
+    expect(req.request.method).toBe('PUT');
     req.flush(newEvent);
   });
 
@@ -47,20 +45,18 @@ describe('EventsService', () => {
     const service: EventsService = TestBed.get(EventsService);
 
     const event: Event = {
-      id: 2,
       name: 'Royal Rumble',
       hash: 'royalrumblehash',
       permalink: 'http://example.com/royalrumblehash'
     };
 
     service.getEventByHash(event.hash).subscribe((data: Event) => {
-      expect(data.id).toBe(event.id);
       expect(data.name).toBe(event.name);
       expect(data.hash).toBe(event.hash);
       expect(data.permalink).toBe(event.permalink);
     });
 
-    const req = httpMock.expectOne(environment.baseEndpointUrl + '/events/' + event.hash);
+    const req = httpMock.expectOne(environment.baseEndpointUrl + '/event/' + event.hash);
     expect(req.request.method).toBe('GET');
     req.flush(event);
   });
@@ -76,7 +72,7 @@ describe('EventsService', () => {
       expect(data).toBe(returnValue);
     });
 
-    const req = httpMock.expectOne(environment.baseEndpointUrl + '/events/' + invalidHash);
+    const req = httpMock.expectOne(environment.baseEndpointUrl + '/event/' + invalidHash);
     expect(req.request.method).toBe('GET');
     req.flush(returnValue);
   });

@@ -31,32 +31,34 @@ export class ViewEventDetailComponent implements OnInit {
     this.eventFacade.recordRsvp({
       name: this.personName,
       eventHash: this.hash,
+      userId: this.userId(),
       rsvp: RsvpType.YES
     });
-    this.updateCookie();
   }
 
   public rsvpNo() {
     this.eventFacade.recordRsvp({
       name: this.personName,
       eventHash: this.hash,
+      userId: this.userId(),
       rsvp: RsvpType.NO
     });
-    this.updateCookie();
   }
 
   public hasRsvps(event) {
    return event.rsvps != null && event.rsvps.length != 0;
   }
 
-  private updateCookie() {
+  private userId() {
     let cookieValue = this.cookieService.get("rsvp-data");
     let rsvpData = cookieValue ? JSON.parse(cookieValue) : [];
+    const userId = this.uuidv4();
     rsvpData.push({
-      eventHash: this.hash,
-      name: this.personName
+      userId: userId
     });
     this.cookieService.set("rsvp-data", JSON.stringify(rsvpData));
+
+    return userId;
   }
 
   rsvpCss(rsvp: Rsvp) {
@@ -67,5 +69,13 @@ export class ViewEventDetailComponent implements OnInit {
     } else {
       return "badge-primary";
     }
+  }
+
+  private uuidv4(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    }
+    );
   }
 }

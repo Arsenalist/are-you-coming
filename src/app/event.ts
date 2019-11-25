@@ -3,7 +3,6 @@ export enum RsvpType {
   NO = 'no'
 }
 export interface Event {
-  id: number;
   name: string;
   hash: string;
   permalink: string;
@@ -11,6 +10,7 @@ export interface Event {
 }
 export interface Rsvp {
   name: string,
+  userId: string,
   eventHash: string,
   rsvp: RsvpType
 }

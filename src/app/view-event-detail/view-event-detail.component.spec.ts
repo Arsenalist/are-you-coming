@@ -8,7 +8,6 @@ describe('ViewEventDetailComponent', () => {
   let fixture: ComponentFixture<ViewEventDetailComponent>;
 
   const event: Event = {
-    id: 2,
     name: 'Royal Rumble',
     hash: 'abc123',
     permalink: 'http://royalrumblehash.example.com'
