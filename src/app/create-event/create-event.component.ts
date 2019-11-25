@@ -20,4 +20,8 @@ export class CreateEventComponent implements OnInit {
       this.event = event;
     });
   }
+
+  linkValue() {
+    return location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/events' + this.event.permalink;
+  }
 }
