@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "wiremock": "java -jar wiremock-standalone-2.23.2.jar",
     "e2e": "npm run wiremock && ng e2e",
-    "postinstall": "ng build --aot --output-path dist  && ./node_modules/protractor/bin/webdriver-manager update"
+    "postinstall": "ng build --aot -prod"
   },
   "private": true,
   "dependencies": {
