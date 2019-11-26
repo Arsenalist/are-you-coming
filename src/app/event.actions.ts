@@ -13,4 +13,8 @@ export const userRsvps = createAction(
   '[View Event] User submits Rsvp',
   props<{ hash: string, rsvp: Rsvp }>()
 );
+export const rsvpDeleted = createAction(
+  '[View Event] User deletes Rsvp',
+  props<{partialRsvp: Partial<Rsvp>}>()
+);
 

@@ -78,4 +78,18 @@ export class ViewEventDetailComponent implements OnInit {
     }
     );
   }
+
+  showDeleteOption(rsvp: Rsvp) {
+    return rsvp.userId == this.userId();
+  }
+
+  public deleteRsvp(rsvp: Rsvp, e: any) {
+    this.eventFacade.deleteRsvp({
+      name: rsvp.name,
+      eventHash: rsvp.eventHash,
+      userId: this.userId()
+    });
+    e.preventDefault();
+    return false;
+  }
 }
