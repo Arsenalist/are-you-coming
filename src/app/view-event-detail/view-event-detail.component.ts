@@ -50,15 +50,15 @@ export class ViewEventDetailComponent implements OnInit {
   }
 
   private userId() {
-    let cookieValue = this.cookieService.get("rsvp-data");
-    let rsvpData = cookieValue ? JSON.parse(cookieValue) : [];
-    const userId = this.uuidv4();
-    rsvpData.push({
-      userId: userId
-    });
-    this.cookieService.set("rsvp-data", JSON.stringify(rsvpData));
-
-    return userId;
+    let rsvpInfo = 'rsvpInfo';
+    const isCookieSet = this.cookieService.check(rsvpInfo);
+    if (isCookieSet) {
+      return JSON.parse(this.cookieService.get(rsvpInfo)).userId;
+    } else {
+      const rsvpData = {userId: this.uuidv4()};
+      this.cookieService.set(rsvpInfo, JSON.stringify(rsvpData ));
+      return rsvpData.userId;
+    }
   }
 
   rsvpCss(rsvp: Rsvp) {
