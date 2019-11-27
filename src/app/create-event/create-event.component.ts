@@ -9,6 +9,7 @@ import {Event} from '../event';
 })
 export class CreateEventComponent implements OnInit {
   public event: Event;
+  showNameValidationFailedMessage = false;
 
   constructor(private eventsService: EventsService ) { }
 
@@ -16,12 +17,21 @@ export class CreateEventComponent implements OnInit {
   }
 
   createEvent(eventName: string) {
-    this.eventsService.createEvent(eventName).subscribe((event) => {
-      this.event = event;
-    });
+    if (eventName.trim() == "") {
+      this.showNameValidationFailedMessage = true;
+    } else {
+      this.showNameValidationFailedMessage = false;
+      this.eventsService.createEvent(eventName).subscribe((event) => {
+        this.event = event;
+      });
+    }
   }
 
   linkValue() {
     return location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/events' + this.event.permalink;
+  }
+
+  clearNameValidationMessage() {
+    this.showNameValidationFailedMessage = false;
   }
 }
