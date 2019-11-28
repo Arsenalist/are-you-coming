@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Event, Rsvp, RsvpType} from '../event'
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
@@ -15,6 +15,7 @@ export class ViewEventDetailComponent implements OnInit {
   event$: Observable<Event>;
   private hash: string;
   personName: string;
+  displayErrorMessage = false;
 
   constructor(private eventFacade: EventFacade, private route: ActivatedRoute, private cookieService: CookieService) {
     this.event$ = eventFacade.initializeCurrentEvent();
@@ -28,6 +29,10 @@ export class ViewEventDetailComponent implements OnInit {
   }
 
   public rsvpYes() {
+    this.setDisplayErrorMessage();
+    if (this.displayErrorMessage) {
+      return;
+    }
     this.eventFacade.recordRsvp({
       name: this.personName,
       eventHash: this.hash,
@@ -37,6 +42,10 @@ export class ViewEventDetailComponent implements OnInit {
   }
 
   public rsvpNo() {
+    this.setDisplayErrorMessage();
+    if (this.displayErrorMessage) {
+      return;
+    }
     this.eventFacade.recordRsvp({
       name: this.personName,
       eventHash: this.hash,
@@ -92,4 +101,9 @@ export class ViewEventDetailComponent implements OnInit {
     e.preventDefault();
     return false;
   }
+
+  setDisplayErrorMessage() {
+    this.displayErrorMessage = this.personName === undefined || this.personName.trim() == "";
+  }
+
 }
