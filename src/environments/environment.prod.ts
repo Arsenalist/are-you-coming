@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseEndpointUrl: 'https://areyoucomingapi.arsenalist.com'
+  baseEndpointUrl: 'https://areyoucomingapi.herokuapp.com'
 
 };
