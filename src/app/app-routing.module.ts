@@ -5,7 +5,7 @@ import {ViewEventDetailComponent} from "./view-event-detail/view-event-detail.co
 
 const routes: Routes = [
   { path: '', component: CreateEventComponent},
-  { path: 'events/:event_hash', component: ViewEventDetailComponent}
+  { path: 'e/:event_hash', component: ViewEventDetailComponent}
 ];
 
 @NgModule({

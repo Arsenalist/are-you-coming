@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../events/events.service';
 import {Event} from '../event';
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-create-event',
@@ -18,13 +17,12 @@ export class CreateEventComponent implements OnInit {
   }
 
   createEvent() {
-    console.log("creating with ", this.eventName);
     this.eventsService.createEvent(this.eventName).subscribe((event) => {
       this.event = event;
     });
   }
 
   linkValue() {
-    return location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/events' + this.event.permalink;
+    return location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/e' + this.event.permalink;
   }
 }
