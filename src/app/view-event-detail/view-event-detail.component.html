@@ -26,16 +26,13 @@
         <p *ngIf="hasRsvps(event)">
           Here's who has RSVP'd:
         </p>
-      <ul class="list-group">
-          <li
-            *ngFor="let rsvp of event.rsvps;"
-            class="list-group-item d-flex justify-content-between align-items-center">
-            <span class="badge {{rsvpCss(rsvp)}} badge-pill">{{rsvp.rsvp}}</span>
-            {{rsvp.name}}
-            <a *ngIf="showDeleteOption(rsvp)" (click)="deleteRsvp(rsvp, $event)" href="#"><img height="15" width="15" src="https://unpkg.com/@icon/open-iconic/icons/x.svg"  alt="Delete RSVP"/></a>
-
-          </li>
-      </ul>
+      <table class="table table-borderless">
+        <tr *ngFor="let rsvp of event.rsvps;">
+          <td><span class="badge {{rsvpCss(rsvp)}} badge-pill">{{rsvp.rsvp}}</span></td>
+          <td>{{rsvp.name}}</td>
+          <td><a *ngIf="showDeleteOption(rsvp)" (click)="deleteRsvp(rsvp, $event)" href="#"><img height="15" width="15" src="https://unpkg.com/@icon/open-iconic/icons/x.svg"  alt="Delete RSVP"/></a></td>
+        </tr>
+      </table>
         </div>
   </div>
 </ng-container>
