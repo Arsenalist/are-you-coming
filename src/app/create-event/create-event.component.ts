@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../events/events.service';
 import {Event} from '../event';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-create-event',
@@ -9,29 +10,21 @@ import {Event} from '../event';
 })
 export class CreateEventComponent implements OnInit {
   public event: Event;
-  showNameValidationFailedMessage = false;
+  public eventName: string;
 
   constructor(private eventsService: EventsService ) { }
 
   ngOnInit(): void {
   }
 
-  createEvent(eventName: string) {
-    if (eventName.trim() == "") {
-      this.showNameValidationFailedMessage = true;
-    } else {
-      this.showNameValidationFailedMessage = false;
-      this.eventsService.createEvent(eventName).subscribe((event) => {
-        this.event = event;
-      });
-    }
+  createEvent() {
+    console.log("creating with ", this.eventName);
+    this.eventsService.createEvent(this.eventName).subscribe((event) => {
+      this.event = event;
+    });
   }
 
   linkValue() {
     return location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/events' + this.event.permalink;
-  }
-
-  clearNameValidationMessage() {
-    this.showNameValidationFailedMessage = false;
   }
 }

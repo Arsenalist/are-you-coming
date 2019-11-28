@@ -1,17 +1,12 @@
 <div class="row">
   <div class="col">
-    <form>
+    <form #eventForm="ngForm" (ngSubmit)="createEvent()">
       <div class="form-group">
         <label>Event Name</label>
-        <input placeholder="e.g., Monday basketball" type="text" class="form-control event-name" #eventName  (keyup)="clearNameValidationMessage()"/>
+        <input #name="ngModel" [(ngModel)]="eventName" id="eventRef" name="eventRef" placeholder="e.g., Monday basketball" type="text" class="form-control event-name" required/>
       </div>
-    <div class="form-group" *ngIf="showNameValidationFailedMessage">
-    <div class="alert alert-warning" role="alert">
-      Please give your event a name. I'm sure it has a name.
-    </div>
-    </div>
       <div class="form-group">
-        <input type="button" class="create-event btn btn-md btn-primary" (click)="createEvent(eventName.value)" value="Create Event"/>
+        <button type="submit" class="create-event btn btn-md btn-primary" [disabled]="!eventForm.form.valid">Create Event</button>
       </div>
       <div class="form-group" *ngIf="event">
         <p><a [href]="linkValue()">Go to your event page</a> or copy it below:</p>
