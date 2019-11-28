@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Event, Rsvp, RsvpType} from '../event'
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 import {EventFacade} from "../event-facade";
 import {CookieService} from "ngx-cookie-service";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-view-event-detail',
@@ -26,6 +27,18 @@ export class ViewEventDetailComponent implements OnInit {
       this.hash = params['event_hash'];
       this.eventFacade.viewEvent(params['event_hash']);
     });
+  }
+
+  numYes(): Observable<number> {
+    return this.event$.pipe(
+      map(e => e.rsvps.filter(r => r.rsvp == "yes").length),
+    );
+  }
+
+  numNo(): Observable<number> {
+    return this.event$.pipe(
+      map(e => e.rsvps.filter(r => r.rsvp == "no").length),
+    );
   }
 
   public rsvpYes() {

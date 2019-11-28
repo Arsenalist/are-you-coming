@@ -24,9 +24,9 @@
     <div class="col">
       <div class="no-rsvps" *ngIf="!hasRsvps(event)">Nobody has RSVPd yet.</div>
         <p *ngIf="hasRsvps(event)">
-          Here's who has RSVP'd:
+          Here's who has RSVP'd ({{numYes() | async}} yes, {{numNo() | async}} no):
         </p>
-      <table class="table table-borderless">
+      <table class="table">
         <tr *ngFor="let rsvp of event.rsvps;">
           <td><span class="badge {{rsvpCss(rsvp)}} badge-pill">{{rsvp.rsvp}}</span></td>
           <td>{{rsvp.name}}</td>
