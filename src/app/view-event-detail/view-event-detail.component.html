@@ -6,7 +6,7 @@
       <form>
         <div class="form-group">
           <label>Name</label>
-          <input (keyup)="setDisplayErrorMessage()" placeholder="e.g., John" class="form-control" type="text" [(ngModel)]="personName" name="personName"/>
+          <input maxlength="200" (keyup)="setDisplayErrorMessage()" placeholder="e.g., John" class="form-control" type="text" [(ngModel)]="personName" name="personName"/>
         </div>
         <div class="form-group" *ngIf="displayErrorMessage">
           <div class="alert alert-warning" role="alert">

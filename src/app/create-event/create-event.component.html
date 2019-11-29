@@ -3,7 +3,7 @@
     <form #eventForm="ngForm" (ngSubmit)="createEvent()">
       <div class="form-group">
         <label>Event Name</label>
-        <input #name="ngModel" [(ngModel)]="eventName" id="eventRef" name="eventRef" placeholder="e.g., Monday basketball" type="text" class="form-control event-name" required/>
+        <input maxlength="200" #name="ngModel" [(ngModel)]="eventName" id="eventRef" name="eventRef" placeholder="e.g., Monday basketball" type="text" class="form-control event-name" required/>
       </div>
       <div class="form-group">
         <button type="submit" class="create-event btn btn-md btn-primary" [disabled]="!eventForm.form.valid">Create Event</button>
