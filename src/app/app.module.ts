@@ -5,7 +5,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CreateEventComponent } from './create-event/create-event.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ViewEventDetailComponent } from './view-event-detail/view-event-detail.component';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './event.reducer';
@@ -17,13 +17,16 @@ import {FormsModule} from "@angular/forms";
 import { SocialShareComponent } from './social-share/social-share.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatProgressBarModule} from "@angular/material";
+import { LoaderComponent } from './loader/loader/loader.component';
+import { LoaderInterceptorService } from './loader/loader-interceptor.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateEventComponent,
     ViewEventDetailComponent,
-    SocialShareComponent
+    SocialShareComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,12 @@ import {MatProgressBarModule} from "@angular/material";
     MatProgressBarModule
 
   ],
-  providers: [CookieService],
+  providers: [CookieService,    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoaderInterceptorService,
+    multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
