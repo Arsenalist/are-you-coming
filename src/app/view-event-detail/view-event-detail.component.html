@@ -1,3 +1,4 @@
+<mat-progress-bar *ngIf="!(event$ | async) as event" mode="indeterminate"></mat-progress-bar>
 <ng-container *ngIf="event$ | async as event">
   <div class="row">
     <div class="col">

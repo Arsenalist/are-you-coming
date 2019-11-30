@@ -15,6 +15,8 @@ import {environment} from "../environments/environment";
 import {CookieService} from "ngx-cookie-service";
 import {FormsModule} from "@angular/forms";
 import { SocialShareComponent } from './social-share/social-share.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatProgressBarModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { SocialShareComponent } from './social-share/social-share.component';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
+    BrowserAnimationsModule,
+    MatProgressBarModule
 
   ],
   providers: [CookieService],
