@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PermalinkMakerService} from "../permalink-maker.service";
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-social-share',
@@ -8,7 +9,7 @@ import {PermalinkMakerService} from "../permalink-maker.service";
 })
 export class SocialShareComponent implements OnInit {
 
-  constructor(private permalinkService: PermalinkMakerService) { }
+  constructor(private permalinkService: PermalinkMakerService, private sanitizer: DomSanitizer) { }
 
   @Input() url: string;
   @Input() description: string;
@@ -16,7 +17,11 @@ export class SocialShareComponent implements OnInit {
   ngOnInit() {
   }
 
-  public whatsAppShareText() {
+  public whatsAppUrl() {
+    return this.sanitizer.bypassSecurityTrustUrl(`whatsapp://send?text=${this.whatsAppShareText()}`);
+  }
+
+  private whatsAppShareText() {
     if (this.description) {
       return encodeURI(this.description) + " " + encodeURI(this.linkValue())
     } else {
