@@ -12,6 +12,10 @@
         <p><a [href]="linkValue()">Go to your event page</a> or copy it below:</p>
         <input type="text" class="form-control event-permalink" [value]="linkValue()"
                (click)="$event.target.select()"/>
+        <br/>
+        <p>
+          <app-social-share [url]="event.permalink"></app-social-share>
+        </p>
       </div>
     </form>
   </div>

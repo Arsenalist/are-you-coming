@@ -14,12 +14,14 @@ import {EffectsModule} from "@ngrx/effects";
 import {environment} from "../environments/environment";
 import {CookieService} from "ngx-cookie-service";
 import {FormsModule} from "@angular/forms";
+import { SocialShareComponent } from './social-share/social-share.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateEventComponent,
-    ViewEventDetailComponent
+    ViewEventDetailComponent,
+    SocialShareComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {EventsService} from '../events/events.service';
 import {Event} from '../event';
+import {PermalinkMakerService} from "../permalink-maker.service";
 
 @Component({
   selector: 'app-create-event',
@@ -11,7 +12,7 @@ export class CreateEventComponent implements OnInit {
   public event: Event;
   public eventName: string;
 
-  constructor(private eventsService: EventsService ) { }
+  constructor(private eventsService: EventsService, private permalinkService: PermalinkMakerService) { }
 
   ngOnInit(): void {
   }
@@ -23,6 +24,6 @@ export class CreateEventComponent implements OnInit {
   }
 
   linkValue() {
-    return location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + '/e' + this.event.permalink;
+    return this.permalinkService.permalink(this.event.permalink);
   }
 }

@@ -22,6 +22,9 @@
   <br/><br/>
   <div class="row">
     <div class="col">
+      <p>
+        <app-social-share [url]="event.permalink"></app-social-share>
+      </p>
       <div class="no-rsvps" *ngIf="!hasRsvps(event)">Nobody has RSVPd yet.</div>
         <p *ngIf="hasRsvps(event)">
           Here's who has RSVP'd ({{numYes() | async}} yes, {{numNo() | async}} no):
