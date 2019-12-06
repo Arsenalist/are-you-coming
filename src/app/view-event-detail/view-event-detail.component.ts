@@ -105,6 +105,7 @@ export class ViewEventDetailComponent implements OnInit {
   }
 
   public showEditEventNameOption(event: Event) {
+    // we're just returning true for everything; maye at some point we'll implement security
     return true;
   }
 
