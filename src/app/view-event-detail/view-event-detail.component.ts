@@ -19,6 +19,7 @@ export class ViewEventDetailComponent implements OnInit {
   displayErrorMessage = false;
   editing: boolean = false;
   private editEventNameInput: ElementRef;
+  eventNameIsDirty: boolean = false;
 
   @ViewChild('editEventNameInput', {static: false})  set content(content: ElementRef) {
     this.editEventNameInput = content;
@@ -120,7 +121,14 @@ export class ViewEventDetailComponent implements OnInit {
 
   saveEventName(event) {
     this.editing = false;
-    this.eventFacade.saveEvent({name: event.name, hash: event.hash});
+    if (this.eventNameIsDirty) {
+      this.eventFacade.saveEvent({name: event.name, hash: event.hash});
+      this.eventNameIsDirty = false;
+    }
     return false;
+  }
+
+  markAsDirty() {
+    this.eventNameIsDirty = true;
   }
 }

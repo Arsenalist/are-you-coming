@@ -1,7 +1,7 @@
 <ng-container *ngIf="event$ | async as event">
   <div class="row">
     <div class="col">
-      <input *ngIf="editing" #editEventNameInput (keyup.enter)="saveEventName(event)" (blur)="saveEventName(event)" maxlength="200" [(ngModel)]="event.name" type="text" class="form-control" required/>
+      <input *ngIf="editing" #editEventNameInput (change)="markAsDirty()" (keyup.enter)="saveEventName(event)" (blur)="saveEventName(event)" maxlength="200" [(ngModel)]="event.name" type="text" class="form-control" required/>
       <h3 *ngIf="!editing" class="event-name">{{event.name}} <a *ngIf="showEditEventNameOption(event)" (click)="enableEditMode()" href="#"><img height="15" width="15" src="https://unpkg.com/@icon/open-iconic/icons/pencil.svg"  alt="Edit Event Name"/></a></h3>
       <p>Are you coming?</p>
         <div class="form-group">
