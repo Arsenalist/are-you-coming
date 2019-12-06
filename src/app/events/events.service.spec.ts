@@ -28,6 +28,7 @@ describe('EventsService', () => {
     const newEvent: Event = {
       name: 'Party at my house',
       permalink: 'http://somethingunique.example.com',
+      userId: 'userid',
       hash: 'party123'
     };
 
@@ -47,6 +48,7 @@ describe('EventsService', () => {
     const event: Event = {
       name: 'Royal Rumble',
       hash: 'royalrumblehash',
+      userId: 'userid',
       permalink: 'http://example.com/royalrumblehash'
     };
 

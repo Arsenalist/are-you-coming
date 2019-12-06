@@ -44,6 +44,7 @@ describe('CreateEventComponent', () => {
     const newEvent: Event = {
       name: 'Party at my house',
       permalink: 'http://somethingunique.example.com',
+      userId: 'userid',
       hash: 'party123'
     };
     const eventsService = TestBed.get(EventsService);
