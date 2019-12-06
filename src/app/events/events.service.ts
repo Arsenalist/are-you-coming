@@ -3,16 +3,19 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable } from 'rxjs';
 import {Event, Rsvp} from '../event';
+import {UserIdServiceService} from "../user-id-service.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventsService {
 
-  constructor(private http: HttpClient ) { }
+  constructor(private http: HttpClient, private userIdService: UserIdServiceService) { }
 
   createEvent(eventName: string): Observable<Event> {
-    return this.http.put<Event>(environment.baseEndpointUrl + '/event', {name: eventName});
+    return this.http.put<Event>(environment.baseEndpointUrl + '/event', {
+      name: eventName,
+      userId: this.userIdService.userId()});
   }
 
   getEventByHash(hash: string): Observable<Event> {
