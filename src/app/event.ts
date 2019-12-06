@@ -6,6 +6,7 @@ export interface Event {
   name: string;
   hash: string;
   permalink: string;
+  userId: string;
   rsvps?: Rsvp[]
 }
 export interface Rsvp {

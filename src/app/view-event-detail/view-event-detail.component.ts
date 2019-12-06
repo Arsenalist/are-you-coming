@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Event, Rsvp, RsvpType} from '../event'
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
@@ -17,6 +17,15 @@ export class ViewEventDetailComponent implements OnInit {
   private hash: string;
   personName: string;
   displayErrorMessage = false;
+  editing: boolean = false;
+  private editEventNameInput: ElementRef;
+
+  @ViewChild('editEventNameInput', {static: false})  set content(content: ElementRef) {
+    this.editEventNameInput = content;
+    if (content) {
+      this.editEventNameInput.nativeElement.focus();
+    }
+  }
 
   constructor(private eventFacade: EventFacade, private route: ActivatedRoute, private userIdSerivce: UserIdServiceService) {
     this.event$ = eventFacade.initializeCurrentEvent();
@@ -95,8 +104,22 @@ export class ViewEventDetailComponent implements OnInit {
     return false;
   }
 
+  public showEditEventNameOption(event: Event) {
+    return true;
+  }
+
   setDisplayErrorMessage() {
     this.displayErrorMessage = this.personName === undefined || this.personName.trim() == "";
   }
 
+  enableEditMode() {
+    this.editing = true;
+    return false;
+  }
+
+  saveEventName(event) {
+    this.editing = false;
+    this.eventFacade.saveEvent({name: event.name, hash: event.hash});
+    return false;
+  }
 }

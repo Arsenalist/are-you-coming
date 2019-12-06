@@ -35,4 +35,11 @@ export class EventsService {
     };
     return this.http.delete<Event>(environment.baseEndpointUrl + `/event/rsvp`, options);
   }
+
+  saveEvent(partialEvent: Partial<Event>): Observable<Event> {
+    return this.http.post<Event>(environment.baseEndpointUrl + `/event`, {
+      userId: this.userIdService.userId(),
+      ...partialEvent
+    });
+  }
 }

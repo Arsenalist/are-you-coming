@@ -1,5 +1,5 @@
 import {Action, createReducer, on } from '@ngrx/store';
-import {eventView, eventLoadedSuccess, userRsvps, rsvpDeleted} from './event.actions';
+import {eventView, eventLoadedSuccess, userRsvps, rsvpDeleted, eventSaved} from './event.actions';
 import { Event } from './event';
 
 export interface AppState {
@@ -17,6 +17,7 @@ const eventReducers = createReducer(
   on(eventView, state => state),
   on(userRsvps, state => state),
   on(rsvpDeleted, state => state),
+  on(eventSaved, state => state),
   on(eventLoadedSuccess, (state, {payload}) => ({
       ...state,
       currentEvent: payload

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {createSelector, select, Store} from "@ngrx/store";
 import {AppState} from "./event.reducer";
-import {eventView, userRsvps, rsvpDeleted} from "./event.actions";
+import {eventView, userRsvps, rsvpDeleted, eventSaved} from "./event.actions";
 import {Event, Rsvp} from "./event";
 import {Observable} from "rxjs";
 
@@ -32,5 +32,9 @@ export class EventFacade {
 
   public deleteRsvp(rsvp: Partial<Rsvp>) {
     this.store.dispatch(rsvpDeleted({partialRsvp: rsvp}))
+  }
+
+  public saveEvent(event: Partial<Event>) {
+    this.store.dispatch(eventSaved({partialEvent: event}))
   }
 }

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {Rsvp} from "./event";
+import {Rsvp, Event} from "./event";
 
 export const eventView = createAction(
   '[View Event] Event Viewed',
@@ -16,5 +16,10 @@ export const userRsvps = createAction(
 export const rsvpDeleted = createAction(
   '[View Event] User deletes Rsvp',
   props<{partialRsvp: Partial<Rsvp>}>()
+);
+
+export const eventSaved = createAction(
+  '[Save Event] User saves Rsvp',
+  props<{partialEvent: Partial<Event>}>()
 );
 

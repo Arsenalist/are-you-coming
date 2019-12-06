@@ -3,7 +3,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {EMPTY} from 'rxjs';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {EventsService} from './events/events.service';
-import {eventLoadedSuccess, eventView, rsvpDeleted, userRsvps} from "./event.actions";
+import {eventLoadedSuccess, eventSaved, eventView, rsvpDeleted, userRsvps} from "./event.actions";
 
 
 @Injectable()
@@ -44,6 +44,20 @@ export class EventEffects {
         ofType(rsvpDeleted),
         mergeMap(action => {
             return this.eventsService.deleteRsvp(action.partialRsvp).pipe(
+              map((event) => ({type: eventView.type, hash: event.hash})),
+              catchError(() => EMPTY)
+            )
+          }
+        )
+      );
+    }
+  );
+
+  eventSaved$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(eventSaved),
+        mergeMap(action => {
+            return this.eventsService.saveEvent(action.partialEvent).pipe(
               map((event) => ({type: eventView.type, hash: event.hash})),
               catchError(() => EMPTY)
             )
