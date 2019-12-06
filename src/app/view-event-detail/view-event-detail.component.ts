@@ -3,8 +3,8 @@ import {Event, Rsvp, RsvpType} from '../event'
 import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 import {EventFacade} from "../event-facade";
-import {CookieService} from "ngx-cookie-service";
 import {map} from "rxjs/operators";
+import {UserIdServiceService} from "../user-id-service.service";
 
 @Component({
   selector: 'app-view-event-detail',
@@ -18,7 +18,7 @@ export class ViewEventDetailComponent implements OnInit {
   personName: string;
   displayErrorMessage = false;
 
-  constructor(private eventFacade: EventFacade, private route: ActivatedRoute, private cookieService: CookieService) {
+  constructor(private eventFacade: EventFacade, private route: ActivatedRoute, private userIdSerivce: UserIdServiceService) {
     this.event$ = eventFacade.initializeCurrentEvent();
   }
 
@@ -49,7 +49,7 @@ export class ViewEventDetailComponent implements OnInit {
     this.eventFacade.recordRsvp({
       name: this.personName,
       eventHash: this.hash,
-      userId: this.userId(),
+      userId: this.userIdSerivce.userId(),
       rsvp: RsvpType.YES
     });
   }
@@ -62,25 +62,13 @@ export class ViewEventDetailComponent implements OnInit {
     this.eventFacade.recordRsvp({
       name: this.personName,
       eventHash: this.hash,
-      userId: this.userId(),
+      userId: this.userIdSerivce.userId(),
       rsvp: RsvpType.NO
     });
   }
 
   public hasRsvps(event) {
    return event.rsvps != null && event.rsvps.length != 0;
-  }
-
-  private userId() {
-    let rsvpInfo = 'rsvpInfo';
-    const isCookieSet = this.cookieService.check(rsvpInfo);
-    if (isCookieSet) {
-      return JSON.parse(this.cookieService.get(rsvpInfo)).userId;
-    } else {
-      const rsvpData = {userId: this.uuidv4()};
-      this.cookieService.set(rsvpInfo, JSON.stringify(rsvpData ));
-      return rsvpData.userId;
-    }
   }
 
   rsvpCss(rsvp: Rsvp) {
@@ -93,23 +81,15 @@ export class ViewEventDetailComponent implements OnInit {
     }
   }
 
-  private uuidv4(): string {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-      let r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    }
-    );
-  }
-
   showDeleteOption(rsvp: Rsvp) {
-    return rsvp.userId == this.userId();
+    return rsvp.userId == this.userIdSerivce.userId();
   }
 
   public deleteRsvp(rsvp: Rsvp, e: any) {
     this.eventFacade.deleteRsvp({
       name: rsvp.name,
       eventHash: rsvp.eventHash,
-      userId: this.userId()
+      userId: this.userIdSerivce.userId()
     });
     e.preventDefault();
     return false;
