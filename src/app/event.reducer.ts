@@ -1,15 +1,14 @@
 import {Action, createReducer, on } from '@ngrx/store';
 import {eventView, eventLoadedSuccess, userRsvps, rsvpDeleted, eventSaved} from './event.actions';
-import { Event } from './event';
 
 export interface AppState {
   userCookie: string;
-  currentEvent: Event | undefined;
+  currentEvent: any | undefined;
 }
 
 const initialState: AppState = {
     userCookie: 'myCookie',
-    currentEvent: undefined
+    currentEvent: {}
   };
 
 const eventReducers = createReducer(
@@ -18,11 +17,16 @@ const eventReducers = createReducer(
   on(userRsvps, state => state),
   on(rsvpDeleted, state => state),
   on(eventSaved, state => state),
-  on(eventLoadedSuccess, (state, {payload}) => ({
-      ...state,
-      currentEvent: payload
-    }
-  ))
+  on(eventLoadedSuccess, (state, {payload}) => {
+    const updatedCurrentEvent = state.currentEvent;
+    updatedCurrentEvent[payload.hash] = payload;
+    return (
+      {
+        ...state,
+        currentEvent: updatedCurrentEvent
+      }
+    );
+  })
 );
 
 export function reducer(state: AppState | undefined, action: Action) {

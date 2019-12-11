@@ -12,12 +12,9 @@ export class EventFacade {
 
   constructor(private store: Store<AppState>) { }
 
-  public viewEvent(hash: string) {
+  public viewEvent(hash: string): Observable<Event> {
     this.store.dispatch(eventView({hash: hash}));
-  }
-
-  public initializeCurrentEvent(): Observable<Event> {
-    const selectCurrentEvent = (state: AppState) => state.currentEvent ;
+    const selectCurrentEvent = (state: AppState) => state.currentEvent[hash] ;
     const selector = createSelector(selectCurrentEvent, (selectCurrentEvent: Event) => selectCurrentEvent );
     return this.store.pipe(
       select('appState'),

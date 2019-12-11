@@ -29,13 +29,12 @@ export class ViewEventDetailComponent implements OnInit {
   }
 
   constructor(private eventFacade: EventFacade, private route: ActivatedRoute, private userIdSerivce: UserIdServiceService) {
-    this.event$ = eventFacade.initializeCurrentEvent();
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.hash = params['event_hash'];
-      this.eventFacade.viewEvent(params['event_hash']);
+      this.event$ = this.eventFacade.viewEvent(params['event_hash']);
     });
   }
 
