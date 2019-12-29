@@ -30,7 +30,7 @@
     "@ngrx/store-devtools": "^8.4.0",
     "core-js": "^2.5.4",
     "express": "^4.17.1",
-    "heroku-ssl-redirect": "0.0.4",
+    "express-sslify": "^1.2.0",
     "ngx-cookie-service": "^2.2.0",
     "rxjs": "~6.5.3",
     "tslib": "^1.9.0",
