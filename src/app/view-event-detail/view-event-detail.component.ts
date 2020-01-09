@@ -1,17 +1,18 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Event, Rsvp, RsvpType} from '../event'
 import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {EventFacade} from "../event-facade";
-import {map} from "rxjs/operators";
+import {filter, map} from "rxjs/operators";
 import {UserIdServiceService} from "../user-id-service.service";
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-view-event-detail',
   templateUrl: './view-event-detail.component.html',
   styleUrls: ['./view-event-detail.component.scss']
 })
-export class ViewEventDetailComponent implements OnInit {
+export class ViewEventDetailComponent implements OnInit, OnDestroy {
 
   event$: Observable<Event>;
   private hash: string;
@@ -20,6 +21,7 @@ export class ViewEventDetailComponent implements OnInit {
   editing: boolean = false;
   private editEventNameInput: ElementRef;
   eventNameIsDirty: boolean = false;
+  private titleSubscription: Subscription;
 
   @ViewChild('editEventNameInput', {static: false})  set content(content: ElementRef) {
     this.editEventNameInput = content;
@@ -28,13 +30,17 @@ export class ViewEventDetailComponent implements OnInit {
     }
   }
 
-  constructor(private eventFacade: EventFacade, private route: ActivatedRoute, private userIdSerivce: UserIdServiceService) {
+  constructor(private titleService: Title, private eventFacade: EventFacade, private route: ActivatedRoute, private userIdSerivce: UserIdServiceService) {
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.hash = params['event_hash'];
       this.event$ = this.eventFacade.viewEvent(params['event_hash']);
+      this.titleSubscription = this.event$.pipe(
+        filter(e => e !== undefined)
+      ).subscribe(e => this.titleService.setTitle(e.name));
+
     });
   }
 
@@ -129,5 +135,11 @@ export class ViewEventDetailComponent implements OnInit {
 
   markAsDirty() {
     this.eventNameIsDirty = true;
+  }
+
+  ngOnDestroy(): void {
+    if (this.titleSubscription) {
+      this.titleSubscription.unsubscribe();
+    }
   }
 }
