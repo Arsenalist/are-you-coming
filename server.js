@@ -6,7 +6,7 @@ const app = express();
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/are-you-coming'));
-app.use(require('prerender-node'));
+app.use(require('prerender-node').set('prerenderToken', 'M1H2BjNVj65lAIwKk8Pp'));
 
 app.get('/*', function(req,res) {
 
